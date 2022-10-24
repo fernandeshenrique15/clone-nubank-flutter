@@ -36,8 +36,15 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Components().createAppBar('Olá, Henrique', false, Icons.person,
-          Icons.person, Icons.person, Icons.person, _person, context),
+      appBar: Components().createAppBarHome(
+          'Olá, Henrique',
+          false,
+          Icons.person,
+          Icons.person,
+          Icons.person,
+          Icons.person,
+          _person,
+          context),
       body: Column(
         children: [
           Components().createFinishMenu(), // terminar layout do menu

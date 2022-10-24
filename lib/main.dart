@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nubank/pages/account.dart';
 import 'package:nubank/pages/home.dart';
 
 void main() {
@@ -20,6 +21,7 @@ class _MainRoutesState extends State<MainRoutes> {
       initialRoute: '/',
       routes: {
         '/': (context) => const Home(),
+        '/account': (context) => const Account(),
       },
     );
   }

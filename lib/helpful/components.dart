@@ -81,7 +81,40 @@ class Components {
     return SizedBox(width: width, height: height);
   }
 
-  createAppBar(title, center, icon1, icon2, icon3, icon4, action, context) {
+  createAppBarAccount(icon1, icon2, action1, action2, context) {
+    return AppBar(
+      toolbarHeight: 50,
+      backgroundColor: Colors.white,
+      shadowColor: Color.fromARGB(0, 255, 193, 7),
+      leading: Container(
+        margin: EdgeInsets.only(left: 20),
+        child: IconButton(
+          onPressed: action1,
+          icon: IconButton(
+              onPressed: action1, icon: createIcon(icon1, 30, Colors.grey)),
+        ),
+      ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(right: 20, top: 5),
+          child: IconButton(
+              onPressed: action2, icon: createIcon(icon2, 30, Colors.grey)),
+        )
+      ],
+    );
+  }
+
+  createSection(icon, text1, text2, action) {
+    return Row(
+      children: [
+        createIcon(icon, 10),
+        Column(children: [Text(text1), Text(text2)]),
+        createIcon(Icons.arrow_forward_ios, 10)
+      ],
+    );
+  }
+
+  createAppBarHome(title, center, icon1, icon2, icon3, icon4, action, context) {
     return AppBar(
       backgroundColor: const Color.fromARGB(255, 131, 10, 209),
       toolbarHeight: 50,
