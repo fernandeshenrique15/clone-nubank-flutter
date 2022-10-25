@@ -15,6 +15,10 @@ class _HomeState extends State<Home> {
     return null;
   }
 
+  viewAccount() {
+    Navigator.of(context).pushNamed('/account');
+  }
+
   List<Cards> listCard = [
     Cards("Celular Seguro. ", "Seu celular protegido, pra você fazer mais.",
         const Color.fromARGB(255, 118, 15, 252), Colors.black),
@@ -33,6 +37,61 @@ class _HomeState extends State<Home> {
     Icones("Cartões", Icons.credit_card_outlined),
   ];
 
+  balanceAccount() {
+    return InkWell(
+      onTap: viewAccount,
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(20, 25, 0, 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Components().createText("Conta", 20),
+                  Components().createSizeBox(0, 20),
+                  Components().createText("R\$ 0,00", 20),
+                  Components().createSizeBox(0, 10),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(0, 0, 20, 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Components()
+                      .createIcon(Icons.keyboard_arrow_right_outlined, 30),
+                  Components().createSizeBox(0, 30),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  createFinishMenu() {
+    return Row(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(20, 35, 0, 10),
+            color: const Color.fromARGB(255, 131, 10, 209),
+            height: 85,
+            child: Components().createText("Olá, Henrique", 20, Colors.white),
+          ),
+        ), // header
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,10 +106,11 @@ class _HomeState extends State<Home> {
           context),
       body: Column(
         children: [
-          Components().createFinishMenu(), // terminar layout do menu
-          Components().balanceAccount(), // conta
-          SizedBox(
+          createFinishMenu(), // terminar layout do menu
+          balanceAccount(), // conta
+          Container(
               height: 90,
+              margin: EdgeInsets.only(top: 20),
               child: Components().scrollIcons(context, listIcones, _person)),
           Components().createdCardCredit(), // Cartões
           SizedBox(

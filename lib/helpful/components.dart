@@ -106,10 +106,21 @@ class Components {
 
   createSection(icon, text1, text2, action) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        createIcon(icon, 10),
-        Column(children: [Text(text1), Text(text2)]),
-        createIcon(Icons.arrow_forward_ios, 10)
+        Expanded(flex: 5, child: createIcon(icon, 30)),
+        Expanded(
+          flex: 90,
+          child: Container(
+              padding: EdgeInsets.only(top: 5, bottom: 5, left: 25),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [text1, createSizeBox(0, 5), text2])),
+        ),
+        Expanded(
+            flex: 5,
+            child: createIcon(Icons.arrow_forward_ios, 15,
+                Color.fromARGB(255, 122, 122, 122)))
       ],
     );
   }
@@ -154,7 +165,7 @@ class Components {
         margin: const EdgeInsets.only(top: 20, left: 20, right: 40),
         padding: const EdgeInsets.fromLTRB(9, 13, 9, 13),
         decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 221, 223, 228),
+            color: Color.fromARGB(255, 233, 235, 240),
             borderRadius: BorderRadius.all(Radius.circular(5.0))),
         child: Row(
           children: const [
@@ -221,7 +232,7 @@ class Components {
                         children: [
                           Container(
                             decoration: const BoxDecoration(
-                                color: Color.fromARGB(255, 221, 223, 228),
+                                color: Color.fromARGB(255, 233, 235, 240),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(60.0))),
                             child: IconButton(
@@ -246,54 +257,9 @@ class Components {
     );
   }
 
-  balanceAccount() {
-    return Row(
-      children: [
-        Expanded(
-          flex: 1,
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(20, 25, 0, 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Components().createText("Conta", 20),
-                createSizeBox(0, 20),
-                Components().createText("R\$ 0,00", 20),
-                createSizeBox(0, 10),
-              ],
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(0, 0, 20, 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                createIcon(Icons.keyboard_arrow_right_outlined, 30),
-                createSizeBox(0, 30),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  createFinishMenu() {
-    return Row(
-      children: [
-        Expanded(
-          flex: 1,
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(20, 35, 0, 10),
-            color: const Color.fromARGB(255, 131, 10, 209),
-            height: 85,
-            child: Components().createText("Olá, Henrique", 20, Colors.white),
-          ),
-        ), // header
-      ],
+  spaceH() {
+    return const SizedBox(
+      height: 40,
     );
   }
 
@@ -313,7 +279,7 @@ class Components {
                       padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
                       width: MediaQuery.of(context).size.width / 2,
                       decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 221, 223, 228),
+                          color: Color.fromARGB(255, 233, 235, 240),
                           borderRadius: BorderRadius.all(Radius.circular(5.0))),
                       child: Wrap(
                         children: [
