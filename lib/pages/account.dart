@@ -15,31 +15,16 @@ class _AccountState extends State<Account> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: Components().createAppBarAccount(
+        appBar: createAppBarAccount(
             Icons.arrow_back_ios, Icons.help_outline, action, action, context),
         body: Column(
           children: [
             Container(
-              margin: const EdgeInsets.only(top: 50, left: 37, right: 37),
+              margin: const EdgeInsets.only(top: 50, left: 37),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text("Saldo disponível",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 145, 144, 144),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold)),
-                      Components().createSizeBox(0, 10),
-                      const Text("R\$ 0,00",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 33,
-                              fontWeight: FontWeight.bold))
-                    ],
-                  ),
+                  balanceAvaiable(),
                   Components().spaceH(),
                   Container(
                     child: Components().createSection(
@@ -53,7 +38,7 @@ class _AccountState extends State<Account> {
                   Components().spaceH(),
                   SizedBox(
                     height: 120,
-                    child: scrollIcon(context, listIcones, action),
+                    child: scrollIcon(context, listIcones),
                   ),
                 ],
               ),
@@ -105,6 +90,34 @@ class _AccountState extends State<Account> {
     Transaction(Icons.arrow_circle_down, "Transferência recebida", "João Paulo",
         "R\$ 100,00", "Pix", "20 OUT"),
   ];
+
+  TextEditingController searchControl = TextEditingController();
+  GlobalKey<FormState> formControl = GlobalKey<FormState>();
+
+  createAppBarAccount(icon1, icon2, action1, action2, context) {
+    return AppBar(
+      toolbarHeight: 50,
+      backgroundColor: Colors.white,
+      shadowColor: const Color.fromARGB(0, 255, 193, 7),
+      leading: Container(
+        margin: const EdgeInsets.only(left: 20),
+        child: IconButton(
+          onPressed: action1,
+          icon: IconButton(
+              onPressed: action1,
+              icon: Components().createIcon(icon1, 30, Colors.grey)),
+        ),
+      ),
+      actions: [
+        Container(
+          margin: const EdgeInsets.only(right: 30, top: 5),
+          child: IconButton(
+              onPressed: action2,
+              icon: Components().createIcon(icon2, 30, Colors.grey)),
+        )
+      ],
+    );
+  }
 
   action() {
     return null;
@@ -171,13 +184,29 @@ class _AccountState extends State<Account> {
               const SizedBox(
                 width: 10,
               ),
-              const Text(
-                "Buscar",
-                style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 145, 144, 144)),
-              )
+              Form(
+                  key: formControl,
+                  child: SizedBox(
+                      width: 300,
+                      height: 35,
+                      child: TextFormField(
+                        keyboardType: TextInputType.text,
+                        cursorColor: Colors.grey,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          labelText: "Buscar",
+                          labelStyle: TextStyle(color: Colors.grey),
+                        ),
+                        textAlign: TextAlign.start,
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.grey),
+                        controller: searchControl,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Digite a pesquisa";
+                          }
+                        },
+                      ))),
             ],
           ),
         ),
@@ -272,7 +301,24 @@ class _AccountState extends State<Account> {
     );
   }
 
-  scrollIcon(context, List<Icones> listIcon, _action) {
+  balanceAvaiable() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text("Saldo disponível",
+            style: TextStyle(
+                color: Color.fromARGB(255, 145, 144, 144),
+                fontSize: 15,
+                fontWeight: FontWeight.bold)),
+        Components().createSizeBox(0, 10),
+        const Text("R\$ 0,00",
+            style: TextStyle(
+                color: Colors.black, fontSize: 33, fontWeight: FontWeight.bold))
+      ],
+    );
+  }
+
+  scrollIcon(context, List<Icones> listIcon) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverToBoxAdapter(
@@ -297,7 +343,7 @@ class _AccountState extends State<Account> {
                                     const EdgeInsets.fromLTRB(20, 20, 24, 24),
                                 icon: Components()
                                     .createIcon(listIcon[index].icon, 30),
-                                onPressed: _action),
+                                onPressed: action),
                           ),
                           Container(
                               margin: const EdgeInsets.only(top: 5),

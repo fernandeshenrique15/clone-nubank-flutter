@@ -81,46 +81,25 @@ class Components {
     return SizedBox(width: width, height: height);
   }
 
-  createAppBarAccount(icon1, icon2, action1, action2, context) {
-    return AppBar(
-      toolbarHeight: 50,
-      backgroundColor: Colors.white,
-      shadowColor: Color.fromARGB(0, 255, 193, 7),
-      leading: Container(
-        margin: EdgeInsets.only(left: 20),
-        child: IconButton(
-          onPressed: action1,
-          icon: IconButton(
-              onPressed: action1, icon: createIcon(icon1, 30, Colors.grey)),
-        ),
-      ),
-      actions: [
-        Container(
-          margin: EdgeInsets.only(right: 20, top: 5),
-          child: IconButton(
-              onPressed: action2, icon: createIcon(icon2, 30, Colors.grey)),
-        )
-      ],
-    );
-  }
-
   createSection(icon, text1, text2, action) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(flex: 5, child: createIcon(icon, 30)),
         Expanded(
-          flex: 90,
+          flex: 80,
           child: Container(
-              padding: EdgeInsets.only(top: 5, bottom: 5, left: 25),
+              padding: const EdgeInsets.only(top: 5, bottom: 5, left: 25),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [text1, createSizeBox(0, 5), text2])),
         ),
         Expanded(
-            flex: 5,
-            child: createIcon(Icons.arrow_forward_ios, 15,
-                Color.fromARGB(255, 122, 122, 122)))
+            flex: 15,
+            child: Container(
+                margin: const EdgeInsets.only(right: 15),
+                child: createIcon(Icons.arrow_forward_ios, 15,
+                    Color.fromARGB(255, 122, 122, 122))))
       ],
     );
   }
