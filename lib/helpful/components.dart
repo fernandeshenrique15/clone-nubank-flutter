@@ -3,8 +3,9 @@ import 'package:nubank/objects/cards.dart';
 import 'package:nubank/objects/icones.dart';
 
 class Components {
-  createText(text, size, [color]) {
-    color = color == null ? Colors.black : color;
+  final Color colorTransparent = Color.fromARGB(0, 244, 67, 54);
+
+  createText(String text, double size, {Color color = Colors.black}) {
     return Text(
       text,
       style: TextStyle(fontSize: size, color: color),
@@ -117,7 +118,7 @@ class Components {
         ),
       ),
       centerTitle: true,
-      shadowColor: const Color.fromARGB(0, 255, 193, 7),
+      shadowColor: colorTransparent,
       actions: [
         Column(
           children: [
@@ -215,6 +216,8 @@ class Components {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(60.0))),
                             child: IconButton(
+                              hoverColor: colorTransparent,
+                              highlightColor: colorTransparent,
                               padding: const EdgeInsets.all(15),
                               icon: createIcon(listIcon[index].icon, 25),
                               onPressed: _action,

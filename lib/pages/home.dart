@@ -85,7 +85,8 @@ class _HomeState extends State<Home> {
             padding: const EdgeInsets.fromLTRB(20, 35, 0, 10),
             color: const Color.fromARGB(255, 131, 10, 209),
             height: 85,
-            child: Components().createText("Olá, Henrique", 20, Colors.white),
+            child: Components()
+                .createText("Olá, Henrique", 20, color: Colors.white),
           ),
         ), // header
       ],

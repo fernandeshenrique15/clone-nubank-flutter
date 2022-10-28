@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nubank/helpful/components.dart';
 import 'package:nubank/objects/icones.dart';
 import 'package:nubank/objects/transaction.dart';
@@ -11,56 +12,67 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
+  ScrollController _pageScroll = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: createAppBarAccount(
-            Icons.arrow_back_ios, Icons.help_outline, action, action, context),
-        body: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 50, left: 37),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        appBar: createAppBarAccount(Icons.arrow_back_ios, Icons.help_outline,
+            returnPage, action, context),
+        body: SingleChildScrollView(
+            controller: _pageScroll,
+            scrollDirection: Axis.vertical,
+            child: Stack(children: [
+              Column(
                 children: [
-                  balanceAvaiable(),
-                  Components().spaceH(),
                   Container(
-                    child: Components().createSection(
-                        Icons.savings_outlined, text1(), text2(), action),
+                    margin: const EdgeInsets.only(top: 50, left: 37),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        balanceAvaiable(),
+                        Components().spaceH(),
+                        Container(
+                          child: Components().createSection(
+                              Icons.savings_outlined, text1(), text2(), action),
+                        ),
+                        Components().spaceH(),
+                        Container(
+                          child: Components().createSection(
+                              Icons.signal_cellular_alt,
+                              text3(),
+                              text4(),
+                              action),
+                        ),
+                        Components().spaceH(),
+                        SizedBox(
+                          height: 120,
+                          child: scrollIcon(context, listIcones),
+                        ),
+                      ],
+                    ),
                   ),
-                  Components().spaceH(),
                   Container(
-                    child: Components().createSection(
-                        Icons.signal_cellular_alt, text3(), text4(), action),
-                  ),
-                  Components().spaceH(),
-                  SizedBox(
-                    height: 120,
-                    child: scrollIcon(context, listIcones),
-                  ),
+                    margin: const EdgeInsets.only(top: 15),
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        top: BorderSide(
+                            color: Color.fromARGB(255, 221, 223, 228),
+                            width: 2,
+                            style: BorderStyle.solid),
+                      ),
+                    ),
+                    child: Container(
+                      margin:
+                          const EdgeInsets.only(top: 50, left: 37, right: 37),
+                      child: history(),
+                    ),
+                  )
                 ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 15),
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                      color: Color.fromARGB(255, 221, 223, 228),
-                      width: 2,
-                      style: BorderStyle.solid),
-                ),
-              ),
-              child: Container(
-                margin: const EdgeInsets.only(top: 50, left: 37, right: 37),
-                child: history(),
-              ),
-            )
-          ],
-        ));
+              )
+            ])));
   }
 
   List<Icones> listIcones = [
@@ -91,6 +103,8 @@ class _AccountState extends State<Account> {
         "R\$ 100,00", "Pix", "20 OUT"),
   ];
 
+  final Color colorTransparent = Color.fromARGB(0, 244, 67, 54);
+
   TextEditingController searchControl = TextEditingController();
   GlobalKey<FormState> formControl = GlobalKey<FormState>();
 
@@ -98,20 +112,21 @@ class _AccountState extends State<Account> {
     return AppBar(
       toolbarHeight: 50,
       backgroundColor: Colors.white,
-      shadowColor: const Color.fromARGB(0, 255, 193, 7),
+      shadowColor: colorTransparent,
       leading: Container(
         margin: const EdgeInsets.only(left: 20),
         child: IconButton(
-          onPressed: action1,
-          icon: IconButton(
-              onPressed: action1,
-              icon: Components().createIcon(icon1, 30, Colors.grey)),
-        ),
+            onPressed: action1,
+            hoverColor: colorTransparent,
+            highlightColor: colorTransparent,
+            icon: Components().createIcon(icon1, 30, Colors.grey)),
       ),
       actions: [
         Container(
           margin: const EdgeInsets.only(right: 30, top: 5),
           child: IconButton(
+              hoverColor: colorTransparent,
+              highlightColor: colorTransparent,
               onPressed: action2,
               icon: Components().createIcon(icon2, 30, Colors.grey)),
         )
@@ -121,6 +136,10 @@ class _AccountState extends State<Account> {
 
   action() {
     return null;
+  }
+
+  returnPage() {
+    Navigator.pop(context);
   }
 
   text1() {
@@ -177,6 +196,8 @@ class _AccountState extends State<Account> {
             children: [
               IconButton(
                   onPressed: action,
+                  hoverColor: colorTransparent,
+                  highlightColor: colorTransparent,
                   icon: const Icon(
                     Icons.search,
                     color: Color.fromARGB(255, 145, 144, 144),
@@ -211,7 +232,7 @@ class _AccountState extends State<Account> {
           ),
         ),
         SizedBox(
-          height: 270,
+          height: listTransaction.length * 120,
           width: double.infinity,
           child: transactionView(),
         )
@@ -220,84 +241,71 @@ class _AccountState extends State<Account> {
   }
 
   transactionView() {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverToBoxAdapter(
-          child: SizedBox(
-              height: 270,
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: listTransaction.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                      height: 100,
-                      margin: const EdgeInsets.only(top: 15),
-                      padding: const EdgeInsets.only(bottom: 10),
+    return ListView.builder(
+      itemCount: listTransaction.length,
+      itemBuilder: (context, index) {
+        return Container(
+            height: 100,
+            margin: const EdgeInsets.only(top: 15),
+            padding: const EdgeInsets.only(bottom: 10),
+            decoration: const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                    color: Color.fromARGB(96, 165, 165, 165),
+                    width: 2,
+                    style: BorderStyle.solid),
+              ),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 10,
+                  child: Container(
+                      padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
                       decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                              color: Color.fromARGB(96, 165, 165, 165),
-                              width: 2,
-                              style: BorderStyle.solid),
+                          color: Color.fromARGB(255, 233, 235, 240),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(60.0))),
+                      child: Components()
+                          .createIcon(listTransaction[index].icon, 30)),
+                ),
+                Expanded(
+                  flex: 75,
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          listTransaction[index].title,
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: 10,
-                            child: Container(
-                                padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-                                decoration: const BoxDecoration(
-                                    color: Color.fromARGB(255, 233, 235, 240),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(60.0))),
-                                child: Components().createIcon(
-                                    listTransaction[index].icon, 30)),
-                          ),
-                          Expanded(
-                            flex: 75,
-                            child: Container(
-                              margin: const EdgeInsets.only(left: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    listTransaction[index].title,
-                                    style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Components().createText(
-                                      listTransaction[index].from,
-                                      16,
-                                      Colors.grey),
-                                  Components().createText(
-                                      listTransaction[index].value,
-                                      16,
-                                      Colors.grey),
-                                  Components().createText(
-                                      listTransaction[index].method,
-                                      14,
-                                      Colors.grey),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 15,
-                            child: Components().createText(
-                                listTransaction[index].date, 16, Colors.grey),
-                          ),
-                        ],
-                      ));
-                },
-              )),
-        ),
-      ],
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Components().createText(listTransaction[index].from, 16,
+                            color: Colors.grey),
+                        Components().createText(
+                            listTransaction[index].value, 16,
+                            color: Colors.grey),
+                        Components().createText(
+                            listTransaction[index].method, 14,
+                            color: Colors.grey),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 15,
+                  child: Components().createText(
+                      listTransaction[index].date, 16,
+                      color: Colors.grey),
+                ),
+              ],
+            ));
+      },
     );
   }
 
@@ -339,6 +347,8 @@ class _AccountState extends State<Account> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(60.0))),
                             child: IconButton(
+                                hoverColor: colorTransparent,
+                                highlightColor: colorTransparent,
                                 padding:
                                     const EdgeInsets.fromLTRB(20, 20, 24, 24),
                                 icon: Components()
