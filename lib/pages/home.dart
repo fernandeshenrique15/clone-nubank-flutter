@@ -19,6 +19,10 @@ class _HomeState extends State<Home> {
     Navigator.of(context).pushNamed('/account');
   }
 
+  viewPay() {
+    Navigator.of(context).pushNamed('/pay');
+  }
+
   List<Cards> listCard = [
     Cards("Celular Seguro. ", "Seu celular protegido, pra você fazer mais.",
         const Color.fromARGB(255, 118, 15, 252), Colors.black),
@@ -105,21 +109,30 @@ class _HomeState extends State<Home> {
           Icons.person,
           _person,
           context),
-      body: Column(
-        children: [
-          createFinishMenu(), // terminar layout do menu
-          balanceAccount(), // conta
-          Container(
-              height: 90,
-              margin: EdgeInsets.only(top: 20),
-              child: Components().scrollIcons(context, listIcones, _person)),
-          Components().createdCardCredit(), // Cartões
-          SizedBox(
-              height: 110,
-              child: Components().scrollHorizontal(context, listCard)), // cards
-          Components().cardCredit(),
-        ],
-      ),
+      body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Stack(children: [
+            Column(
+              children: [
+                createFinishMenu(), // terminar layout do menu
+                balanceAccount(), // conta
+                Container(
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    child:
+                        Components().scrollIcons(context, listIcones, viewPay)),
+                Components().createdCardCredit(), // Cartões
+                SizedBox(
+                    height: 110,
+                    child: Components()
+                        .scrollHorizontal(context, listCard)), // cards
+                Components().cardCredit(),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            )
+          ])),
       bottomNavigationBar: Components().bottonNavigator(),
     );
   }
