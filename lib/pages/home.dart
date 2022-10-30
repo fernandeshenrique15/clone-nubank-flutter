@@ -19,8 +19,8 @@ class _HomeState extends State<Home> {
     Navigator.of(context).pushNamed('/account');
   }
 
-  viewPay() {
-    Navigator.of(context).pushNamed('/pay');
+  alterPage(routa) {
+    Navigator.of(context).pushNamed(routa);
   }
 
   List<Cards> listCard = [
@@ -33,12 +33,12 @@ class _HomeState extends State<Home> {
   ];
 
   List<Icones> listIcones = [
-    Icones("Área Pix", Icons.fitbit_outlined),
-    Icones("Pagar", Icons.store_outlined),
-    Icones("Transferir", Icons.eject_outlined),
-    Icones("Depositar", Icons.sync_outlined),
-    Icones("Pedir empréstimo", Icons.account_balance_outlined),
-    Icones("Cartões", Icons.credit_card_outlined),
+    Icones("Área Pix", Icons.fitbit_outlined, "/criar"),
+    Icones("Pagar", Icons.store_outlined, "/pay"),
+    Icones("Transferir", Icons.eject_outlined, "/criar"),
+    Icones("Depositar", Icons.sync_outlined, "/criar"),
+    Icones("Pedir empréstimo", Icons.account_balance_outlined, "/criar"),
+    Icones("Cartões", Icons.credit_card_outlined, "/criar"),
   ];
 
   balanceAccount() {
@@ -119,8 +119,7 @@ class _HomeState extends State<Home> {
                 Container(
                     height: 90,
                     margin: EdgeInsets.only(top: 20),
-                    child:
-                        Components().scrollIcons(context, listIcones, viewPay)),
+                    child: Components().scrollIcons(context, listIcones)),
                 Components().createdCardCredit(), // Cartões
                 SizedBox(
                     height: 110,

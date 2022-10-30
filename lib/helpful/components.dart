@@ -195,7 +195,7 @@ class Components {
     );
   }
 
-  scrollIcons(context, List<Icones> listIcon, _action) {
+  scrollIcons(context, List<Icones> listIcon) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverToBoxAdapter(
@@ -220,7 +220,10 @@ class Components {
                               highlightColor: colorTransparent,
                               padding: const EdgeInsets.all(15),
                               icon: createIcon(listIcon[index].icon, 25),
-                              onPressed: _action,
+                              onPressed: () => {
+                                Navigator.of(context)
+                                    .pushNamed(listIcon[index].page)
+                              },
                             ),
                           ),
                           Container(

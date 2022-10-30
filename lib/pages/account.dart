@@ -76,12 +76,12 @@ class _AccountState extends State<Account> {
   }
 
   List<Icones> listIcones = [
-    Icones("Trazer seu salário", Icons.payments_outlined),
-    Icones("Pagar", Icons.vertical_shades_closed),
-    Icones("Transferir", Icons.price_change_outlined),
-    Icones("Pedir Extrato", Icons.summarize_outlined),
-    Icones("Cobrar", Icons.account_balance_outlined),
-    Icones("Depositar", Icons.credit_card_outlined),
+    Icones("Trazer seu salário", Icons.payments_outlined, "/criar"),
+    Icones("Pagar", Icons.vertical_shades_closed, "/pay"),
+    Icones("Transferir", Icons.price_change_outlined, "/criar"),
+    Icones("Pedir Extrato", Icons.summarize_outlined, "/criar"),
+    Icones("Cobrar", Icons.account_balance_outlined, "/criar"),
+    Icones("Depositar", Icons.credit_card_outlined, "/criar"),
   ];
 
   List<Transaction> listTransaction = [
