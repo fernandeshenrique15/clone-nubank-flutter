@@ -200,14 +200,14 @@ class Components {
       slivers: <Widget>[
         SliverToBoxAdapter(
           child: Container(
-              height: 90.0,
+              height: 92.0,
               margin: const EdgeInsets.only(left: 15),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: listIcon.length,
                 itemBuilder: (context, index) {
                   return SizedBox(
-                      width: 90,
+                      width: 92,
                       child: Column(
                         children: [
                           Container(
@@ -219,7 +219,7 @@ class Components {
                               hoverColor: colorTransparent,
                               highlightColor: colorTransparent,
                               padding: const EdgeInsets.all(15),
-                              icon: createIcon(listIcon[index].icon, 25),
+                              icon: createIcon(listIcon[index].icon, 24),
                               onPressed: () => {
                                 Navigator.of(context)
                                     .pushNamed(listIcon[index].page)

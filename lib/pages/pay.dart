@@ -12,7 +12,7 @@ class Pay extends StatefulWidget {
 }
 
 class _PayState extends State<Pay> {
-  final Color colorTransparent = Color.fromARGB(0, 244, 67, 54);
+  final Color colorTransparent = const Color.fromARGB(0, 244, 67, 54);
 
   _back() {
     Navigator.pop(context);
@@ -25,17 +25,15 @@ class _PayState extends State<Pay> {
       leading: IconButton(
         color: Colors.grey,
         onPressed: _back,
-        icon: Icon(Icons.close),
+        icon: const Icon(Icons.close),
       ),
     );
   }
 
   List<PayMethod> listMethods = [
     PayMethod(
-        const Text(
-          "Pagar Pix com QR Code",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-        ),
+        const Text("Pagar Pix com QR Code",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
         RichText(
           text: const TextSpan(children: [
             TextSpan(
@@ -52,36 +50,25 @@ class _PayState extends State<Pay> {
         Icons.fitbit,
         1),
     PayMethod(
-        const Text(
-          "Pagar fatura do cartão",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-        ),
-        const Text(
-          "Gere um boleto ou pague com seu saldo",
-          style: TextStyle(color: Colors.grey, fontSize: 14),
-        ),
+        const Text("Pagar fatura do cartão",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+        const Text("Gere um boleto ou pague com seu saldo",
+            style: TextStyle(color: Colors.grey, fontSize: 14)),
         Icons.credit_card,
         0),
     PayMethod(
-        const Text(
-          "Pagar boleto",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-        ),
-        const Text(
-          "Use o saldo da conta ou cartão de crédito",
-          style: TextStyle(color: Colors.grey, fontSize: 14),
-        ),
+        const Text("Pagar boleto",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+        const Text("Use o saldo da conta ou cartão de crédito",
+            style: TextStyle(color: Colors.grey, fontSize: 14)),
         Icons.vertical_shades_closed,
         0),
     PayMethod(
+        const Text("Buscador de boletos",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
         const Text(
-          "Buscador de boletos",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-        ),
-        const Text(
-          "A gente traz seus boletos bancários já digitalizados para você.",
-          style: TextStyle(color: Colors.grey, fontSize: 14),
-        ),
+            "A gente traz seus boletos bancários já digitalizados para você.",
+            style: TextStyle(color: Colors.grey, fontSize: 14)),
         Icons.sync,
         0),
   ];
@@ -92,10 +79,10 @@ class _PayState extends State<Pay> {
         backgroundColor: Colors.white,
         appBar: _appBarPay(),
         body: Container(
-          margin: EdgeInsets.only(left: 20, top: 5, right: 20),
+          margin: const EdgeInsets.only(left: 20, top: 5, right: 20),
           child: Column(
             children: [
-              Text(
+              const Text(
                 "Estas são suas opções de pagamento",
                 style: TextStyle(
                     fontSize: 26,
@@ -108,7 +95,7 @@ class _PayState extends State<Pay> {
                     itemCount: listMethods.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                          padding: EdgeInsets.only(top: 20),
+                          padding: const EdgeInsets.only(top: 20),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -141,7 +128,7 @@ class _PayState extends State<Pay> {
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(5.0)),
                                         ),
-                                        padding: EdgeInsets.all(3),
+                                        padding: const EdgeInsets.all(3),
                                         child: const Text(
                                           "Novo",
                                           style: TextStyle(
@@ -156,7 +143,8 @@ class _PayState extends State<Pay> {
                                     child: Components().createIcon(
                                         Icons.arrow_forward_ios,
                                         15,
-                                        Color.fromARGB(255, 122, 122, 122))),
+                                        const Color.fromARGB(
+                                            255, 122, 122, 122))),
                               ),
                             ],
                           ));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:nubank/helpful/components.dart';
 import 'package:nubank/objects/icones.dart';
@@ -12,7 +13,11 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
+  final Color colorTransparent = const Color.fromARGB(0, 244, 67, 54);
+
   ScrollController _pageScroll = ScrollController();
+  TextEditingController searchControl = TextEditingController();
+  GlobalKey<FormState> formControl = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,7 @@ class _AccountState extends State<Account> {
               Column(
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(top: 50, left: 37),
+                    margin: const EdgeInsets.only(top: 50, left: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -66,7 +71,7 @@ class _AccountState extends State<Account> {
                     ),
                     child: Container(
                       margin:
-                          const EdgeInsets.only(top: 50, left: 37, right: 37),
+                          const EdgeInsets.only(top: 35, left: 20, right: 20),
                       child: history(),
                     ),
                   )
@@ -88,25 +93,16 @@ class _AccountState extends State<Account> {
     Transaction(Icons.arrow_circle_up, "Transferência enviada",
         "Henrique Fernandes Neto", "R\$ 100,00", "Pix", "Ontem"),
     Transaction(Icons.arrow_circle_down, "Transferência recebida", "João Paulo",
-        "R\$ 100,00", "Pix", "20 OUT"),
+        "R\$ 100,00", "Pix", "31 OUT"),
     Transaction(Icons.arrow_circle_up, "Transferência enviada",
-        "Henrique Fernandes Neto", "R\$ 100,00", "Pix", "Ontem"),
+        "Henrique Fernandes Neto", "R\$ 100,00", "Pix", "30 OUT"),
     Transaction(Icons.arrow_circle_down, "Transferência recebida", "João Paulo",
-        "R\$ 100,00", "Pix", "20 OUT"),
+        "R\$ 100,00", "Pix", "29 OUT"),
     Transaction(Icons.arrow_circle_up, "Transferência enviada",
-        "Henrique Fernandes Neto", "R\$ 100,00", "Pix", "Ontem"),
+        "Henrique Fernandes Neto", "R\$ 100,00", "Pix", "28 OUT"),
     Transaction(Icons.arrow_circle_down, "Transferência recebida", "João Paulo",
-        "R\$ 100,00", "Pix", "20 OUT"),
-    Transaction(Icons.arrow_circle_up, "Transferência enviada",
-        "Henrique Fernandes Neto", "R\$ 100,00", "Pix", "Ontem"),
-    Transaction(Icons.arrow_circle_down, "Transferência recebida", "João Paulo",
-        "R\$ 100,00", "Pix", "20 OUT"),
+        "R\$ 100,00", "Pix", "27 OUT"),
   ];
-
-  final Color colorTransparent = Color.fromARGB(0, 244, 67, 54);
-
-  TextEditingController searchControl = TextEditingController();
-  GlobalKey<FormState> formControl = GlobalKey<FormState>();
 
   createAppBarAccount(icon1, icon2, action1, action2, context) {
     return AppBar(
@@ -114,12 +110,12 @@ class _AccountState extends State<Account> {
       backgroundColor: Colors.white,
       shadowColor: colorTransparent,
       leading: Container(
-        margin: const EdgeInsets.only(left: 20),
+        margin: const EdgeInsets.only(left: 15),
         child: IconButton(
             onPressed: action1,
             hoverColor: colorTransparent,
             highlightColor: colorTransparent,
-            icon: Components().createIcon(icon1, 30, Colors.grey)),
+            icon: Components().createIcon(icon1, 25, Colors.grey)),
       ),
       actions: [
         Container(
@@ -128,7 +124,7 @@ class _AccountState extends State<Account> {
               hoverColor: colorTransparent,
               highlightColor: colorTransparent,
               onPressed: action2,
-              icon: Components().createIcon(icon2, 30, Colors.grey)),
+              icon: Components().createIcon(icon2, 25, Colors.grey)),
         )
       ],
     );
@@ -203,12 +199,12 @@ class _AccountState extends State<Account> {
                     color: Color.fromARGB(255, 145, 144, 144),
                   )),
               const SizedBox(
-                width: 10,
+                width: 7,
               ),
               Form(
                   key: formControl,
                   child: SizedBox(
-                      width: 300,
+                      width: 200,
                       height: 35,
                       child: TextFormField(
                         keyboardType: TextInputType.text,
@@ -232,7 +228,7 @@ class _AccountState extends State<Account> {
           ),
         ),
         SizedBox(
-          height: listTransaction.length * 120,
+          height: listTransaction.length * 140,
           width: double.infinity,
           child: transactionView(),
         )
@@ -245,9 +241,9 @@ class _AccountState extends State<Account> {
       itemCount: listTransaction.length,
       itemBuilder: (context, index) {
         return Container(
-            height: 100,
+            height: 110,
             margin: const EdgeInsets.only(top: 15),
-            padding: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(bottom: 7),
             decoration: const BoxDecoration(
               border: Border(
                 bottom: BorderSide(
@@ -262,18 +258,17 @@ class _AccountState extends State<Account> {
                 Expanded(
                   flex: 10,
                   child: Container(
-                      padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                      padding: const EdgeInsets.fromLTRB(3, 4, 3, 4),
                       decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 233, 235, 240),
                           borderRadius:
                               BorderRadius.all(Radius.circular(60.0))),
                       child: Components()
                           .createIcon(listTransaction[index].icon, 30)),
                 ),
                 Expanded(
-                  flex: 75,
+                  flex: 55,
                   child: Container(
-                    margin: const EdgeInsets.only(left: 20),
+                    margin: const EdgeInsets.only(left: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -350,9 +345,9 @@ class _AccountState extends State<Account> {
                                 hoverColor: colorTransparent,
                                 highlightColor: colorTransparent,
                                 padding:
-                                    const EdgeInsets.fromLTRB(20, 20, 24, 24),
+                                    const EdgeInsets.fromLTRB(20, 20, 20, 20),
                                 icon: Components()
-                                    .createIcon(listIcon[index].icon, 30),
+                                    .createIcon(listIcon[index].icon, 24),
                                 onPressed: action),
                           ),
                           Container(
